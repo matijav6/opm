@@ -45,7 +45,7 @@ function provjeriInput(){
 	var nul = false;
 	for(var i = 0; i < elements.length; i++) {
 	    if(elements[i].type == "text")
-	    	if(elements[i].value == 0)
+	    	if(elements[i].value == null)
         		nul = true;
 	}  
     if(nul){
