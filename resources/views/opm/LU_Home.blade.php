@@ -187,6 +187,7 @@
                         <a href="https://github.com/matijav6"><i class="fab fa-github"></i></a>
                         <a href="mailto:matija.vuk.97@gmail.com"><i class="fas fa-envelope"></i></a>
                     </p>
+                    <p style="float: right; margin-top: -50px;">&copy; Matija Vuk <img style="height: 12px; margin-left: 10px;" src="{{ URL::asset('favicon.ico') }}"></p>
                 </div>                            
             </div><! --/row -->
         </div><! --/container -->
