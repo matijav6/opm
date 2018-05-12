@@ -334,10 +334,8 @@ a:focus {
 
 /* Footer */
 #footerwrap {
-	padding-top: 60px;
-	padding-bottom: 60px;
 	background: #384452;
-	padding: 0 15px 0 15px;
+	padding: 60px 15px 60px 15px;
 }
 
 #footerwrap p {
