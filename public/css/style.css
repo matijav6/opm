@@ -337,6 +337,7 @@ a:focus {
 	padding-top: 60px;
 	padding-bottom: 60px;
 	background: #384452;
+	padding: 0 15px 0 15px;
 }
 
 #footerwrap p {
