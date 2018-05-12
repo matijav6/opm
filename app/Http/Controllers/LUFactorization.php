@@ -143,7 +143,7 @@ class LUFactorization extends Controller
 			$u = $pivot[0];
 			$l = $pivot[1];
 			$p = $pivot[2];
-			$det = $this->IzracunajDeterminantu($l);			
+			$det = $this->IzracunajDeterminantu($u);			
 		}
 		else{			
 			

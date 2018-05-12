@@ -165,7 +165,7 @@
                             @endif
                         </div>    
                         <div class="row">
-                            <h4>Determinanta iznosi: {{$det}}</h4>
+                            <h4>Determinanta iznosi: {{round($det,2)}}</h4>
                         </div>            
                     @endif                 
                 </div>                      

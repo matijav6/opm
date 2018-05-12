@@ -39,14 +39,15 @@ function provjeriRadio(){
 }
 
 function provjeriInput(){
+	var elements = document.getElementById('matrica').children;
+
 	var matrica = document.getElementsByTagName('input');
 	var nul = false;
-
-    for (i = 0; i < matrica.length; i++) {
-    	if(matrica[i].type == "text")
-        	if(matrica[i].value == 0)
+	for(var i = 0; i < elements.length; i++) {
+	    if(elements[i].type == "text")
+	    	if(elements[i].value == 0)
         		nul = true;
-    }
+	}  
     if(nul){
     	alert("Matrica nije popunjena!");
     	return false;
