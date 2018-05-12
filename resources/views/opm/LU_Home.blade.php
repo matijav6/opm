@@ -181,13 +181,13 @@
                 <div class="col-md-auto">
                     <h4>Social Links</h4>
                     <div class="hline-w col-md-auto"></div>
-                    <p>
+                    <p class="socialLinks">
                         <a href="https://www.facebook.com/vuk.matija.6"><i class="fab fa-facebook-square"></i></a>
                         <a href="https://www.instagram.com/matija.vuk"><i class="fab fa-instagram"></i></a>
                         <a href="https://github.com/matijav6"><i class="fab fa-github"></i></a>
                         <a href="mailto:matija.vuk.97@gmail.com"><i class="fas fa-envelope"></i></a>
                     </p>
-                    <p style="float: right; margin-top: -50px;">&copy; Matija Vuk <img style="height: 12px; margin-left: 10px;" src="{{ URL::asset('favicon.ico') }}"></p>
+                    <p class="copyRight">&copy; Matija Vuk <img style="height: 12px; margin-left: 10px;" src="{{ URL::asset('favicon.ico') }}"></p>
                 </div>                            
             </div><! --/row -->
         </div><! --/container -->
