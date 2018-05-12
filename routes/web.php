@@ -9,10 +9,11 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('LU_Factorizaction', 'LUFactorization@LUHome')->name('home');
+*/
+Route::get('/', 'LUFactorization@LUHome')->name('home');
 Route::post('LU_Factorizaction/result', 'LUFactorization@Izracunaj')->name('izracunaj');
