@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Factorization;
 
 class LUFactorization extends Controller
 {
@@ -60,12 +61,13 @@ class LUFactorization extends Controller
 		$velicina = count($matrica);
 		$pom = $matrica;
 		$p = array();
-		for ($x=0; $x < 3 ; $x++)
-			for ($y=0; $y < 3 ; $y++)				
-				$p[$x][$y] = 0;
-		$p[0][0] = 1;
-		$p[1][1] = 1;
-		$p[2][2] = 1;
+		for ($x=0; $x < $velicina ; $x++)
+			for ($y=0; $y < $velicina ; $y++){
+				if($x == $y)
+					$p[$x][$y] = 1;
+				else
+					$p[$x][$y] = 0;
+			}								
 		$max = 0;
 		$stupac = 0;
 		$brojevi = array();		
@@ -135,23 +137,55 @@ class LUFactorization extends Controller
 		}
 	}
 
-	public function Izracunaj(){
-		$matrica = $this->DohvatiVrijednosti();		
+	public function DohvatiIzBaze(Request $request){
+		
+		$zadatak = $request->get('zadatak');
+		$pivotiranje = $request->get('pivotiranje');
+		$zadatakIzBaze = Factorization::where('zadatak_broj', '=', $zadatak)->firstOrFail();		
+		$velicina = $zadatakIzBaze['velicina_matrice'];
+		$i=0;
 
-		if(isset($_POST['pivotiranje'])){
+
+		$matricaIzBaze = explode(" ",$zadatakIzBaze['matrica']);
+
+		for($x = 0; $x < $velicina; $x++)
+			for($y = 0; $y < $velicina; $y++)
+				$matrica[$x][$y] = $matricaIzBaze[$i++];
+		
+		if($pivotiranje == 1){
 			$pivot = $this->pivotiranje($matrica);
 			$u = $pivot[0];
 			$l = $pivot[1];
 			$p = $pivot[2];
 			$det = $this->IzracunajDeterminantu($u);			
-		}
+		}		
 		else{			
 			
 			$merge = $this->IzracunajDonjeTrokutastu($matrica);		
 			$l = $this->IzracunajGornjeTrokutastu($matrica,$merge[1]);
 			$det = $this->IzracunajDeterminantu($merge[0]);
 			$u = $merge[0];			
+		}				
+		return view('opm.LU_Home',compact('u','l','det','matrica','p'));
+
+	}
+
+	public function Izracunaj(){		
+		$matrica = $this->DohvatiVrijednosti();		
+		if(isset($_POST['pivotiranje'])){
+			$pivot = $this->pivotiranje($matrica);
+			$u = $pivot[0];
+			$l = $pivot[1];
+			$p = $pivot[2];
+			$det = $this->IzracunajDeterminantu($u);			
 		}		
+		else{			
+			
+			$merge = $this->IzracunajDonjeTrokutastu($matrica);		
+			$l = $this->IzracunajGornjeTrokutastu($matrica,$merge[1]);
+			$det = $this->IzracunajDeterminantu($merge[0]);
+			$u = $merge[0];			
+		}				
 		return view('opm.LU_Home',compact('u','l','det','matrica','p'));
 	}
 }

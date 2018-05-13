@@ -16,4 +16,5 @@ Route::get('/', function () {
 });
 */
 Route::get('/', 'LUFactorization@LUHome')->name('home');
+Route::get('/baza', 'LUFactorization@DohvatiIzBaze')->name('zadaci');
 Route::post('LU_Factorizaction/result', 'LUFactorization@Izracunaj')->name('izracunaj');

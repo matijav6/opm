@@ -47,7 +47,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadaci <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="blog.html">Zadatak 1</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7">Zadatak 7</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7&pivotiranje=1">Zadatak 7 sa pivotiranjem</a></li>
               </ul>
             </li>
           </ul>
