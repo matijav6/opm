@@ -479,11 +479,13 @@ csmall2 {
 @media (max-width: 371px) {
   .socialLinks, .copyRight {
   	text-align: center;
-  }
-  .ispis{
-  	grid-template-columns: auto !important;
-  }
-  .matricaIspis{
-  	margin: 0 !important;
-  }
+  }  
+}
+@media (max-width: 560px) {
+	.ispis{
+  		grid-template-columns: auto !important;
+  	}
+  	.matricaIspis{
+  		margin: 0 !important;
+  	}
 }
