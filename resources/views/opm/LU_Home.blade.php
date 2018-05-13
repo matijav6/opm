@@ -98,7 +98,7 @@
                         <input type="radio" name="operacija" value="4"></br>                     
                         <a href="#prikaziMatricu" class="btn btn-theme" id="prikaziMatricu" onclick="provjeriRadio();;">Prikaži matricu</a>                  
                     </div>
-                    <div class="col-md-4" id="PocetnaMatrica" style="visibility: hidden;" >                    
+                    <div class="col-md-4" id="PocetnaMatrica" style="display: none;" >                    
                         <h4>Početna matrica</h4>          
                         <div id="matrica" style="margin-top: 20px;">
                             
@@ -109,18 +109,20 @@
                                                                         {{ csrf_field() }}                         
                     </div>
                 </form>
-                <div class="col-md-6">  
+                <div class="col-md-10" id="rezultat">  
                     @if (isset($det))
                         <h4>Rezultat:</h4>  
-                        <div class="row">
+                        <div class="row" style="display: grid; grid-template-columns: auto auto auto auto auto auto;">
                             @if (isset($matrica))
                                 <div class="col-sm" style="display: inline-table; margin-right: 30px;">
                                     @foreach($matrica as $item)                            
                                             @for($i = 0; $i < count($matrica); $i++)                                    
                                                 <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
                                             @endfor
-                                            </br>
-                                    @endforeach                                                                  
+                                            </br>                                            
+                                    @endforeach  
+                                    </br>
+                                    <h3>A</h3>                                                                
                                 </div>
                             @endif 
                             @if (isset($p))
@@ -129,52 +131,33 @@
                                             @for($i = 0; $i < count($p); $i++)                                    
                                                 <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
                                             @endfor
-                                            </br>
-                                    @endforeach                                                              
+                                            </br>                                            
+                                    @endforeach                                     
+                                    </br>
+                                    <h3>P</h3>                                                             
                                 </div>
-                            @endif 
+                            @endif                            
                             <div class="col-sm" style="display: inline-table; margin-right: 30px;">
                                 @foreach($l as $item)                            
                                         @for($i = 0; $i < count($l); $i++)                                    
                                             <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
                                         @endfor
-                                        </br>
-                                @endforeach                                                              
+                                        </br>                                        
+                                @endforeach   
+                                </br>
+                                <h3>L</h3>                                                           
                             </div>                                                                 
                             <div col-sm style="display: inline-table;">
                                 @foreach($u as $item)                            
                                         @for($i = 0; $i < count($u); $i++)                                    
                                             <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
                                         @endfor
-                                        </br>
-                                @endforeach                         
+                                        </br>                                        
+                                @endforeach 
+                                </br>
+                                <h3>U</h3>                        
                             </div>  
-                        </div>                          
-                        <div class="row" style="display: grid; grid-template-columns: auto auto auto auto auto auto;">
-                            @if (isset($matrica))
-                                <div col-sm style="display: inline-table;">
-                                    <h3>A</h3>
-                                </div>
-                            @endif
-                            @if (isset($p))
-                                <div col-sm style="display: inline-table;">
-                                    <h3>P</h3>
-                                </div>
-                            @endif
-                            <div col-sm style="display: inline-table;">
-                                    <h3>=</h3>
-                                </div>
-                            @if (isset($l))
-                                <div col-sm style="display: inline-table;">
-                                    <h3>L</h3>
-                                </div>
-                            @endif
-                            @if (isset($u))
-                                <div col-sm style="display: inline-table;">
-                                    <h3>U</h3>
-                                </div>
-                            @endif
-                        </div>    
+                        </div>                                                                      
                         <div class="row">
                             <h4>Determinanta iznosi: {{round($det,2)}}</h4>
                         </div>            

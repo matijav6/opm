@@ -3,7 +3,9 @@ function pokaziMatricu() {
 
 	var container = document.getElementById("matrica");
 	var pocetna = document.getElementById("PocetnaMatrica");
-	pocetna.style.visibility = "visible" ;
+	var rezultat = document.getElementById("rezultat");
+	rezultat.style.display = "none";
+	pocetna.style.display = "block";
 
 	while (container.hasChildNodes()) {
 		container.removeChild(container.lastChild);
