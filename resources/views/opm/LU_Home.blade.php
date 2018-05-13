@@ -112,9 +112,9 @@
                 <div class="col-md-10" id="rezultat">  
                     @if (isset($det))
                         <h4>Rezultat:</h4>  
-                        <div class="row" style="display: grid; grid-template-columns: auto auto auto auto auto auto;">
+                        <div class="row ispis" style="display: grid; grid-template-columns: auto auto auto auto auto auto;" >
                             @if (isset($matrica))
-                                <div class="col-sm" style="display: inline-table; margin-right: 30px;">
+                                <div class="col-sm matricaIspis" style="display: inline-table; margin-right: 30px;">
                                     @foreach($matrica as $item)                            
                                             @for($i = 0; $i < count($matrica); $i++)                                    
                                                 <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
@@ -126,7 +126,7 @@
                                 </div>
                             @endif 
                             @if (isset($p))
-                                <div class="col-sm" style="display: inline-table; margin-right: 30px;">
+                                <div class="col-sm matricaIspis" style="display: inline-table; margin-right: 30px;">
                                     @foreach($p as $item)                            
                                             @for($i = 0; $i < count($p); $i++)                                    
                                                 <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
@@ -137,7 +137,7 @@
                                     <h3>P</h3>                                                             
                                 </div>
                             @endif                            
-                            <div class="col-sm" style="display: inline-table; margin-right: 30px;">
+                            <div class="col-sm matricaIspis" style="display: inline-table; margin-right: 30px;">
                                 @foreach($l as $item)                            
                                         @for($i = 0; $i < count($l); $i++)                                    
                                             <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
@@ -147,7 +147,7 @@
                                 </br>
                                 <h3>L</h3>                                                           
                             </div>                                                                 
-                            <div col-sm style="display: inline-table;">
+                            <div class="col-sm matricaIspis" style="display: inline-table;">
                                 @foreach($u as $item)                            
                                         @for($i = 0; $i < count($u); $i++)                                    
                                             <input type="text" disabled name="a00" size="3" maxlength="3" value="{{round($item[$i],2)}}" style="margin: 2px;">
