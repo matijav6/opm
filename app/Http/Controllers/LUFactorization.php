@@ -20,16 +20,20 @@ class LUFactorization extends Controller
 	}	
 
 	function IzracunajDonjeTrokutastu($matrica,$k = 0,$pivot = false){	
+		
 		$velicina = count($matrica);
 		$pom = $matrica;
 		$brojevi = array();				
+		
 		for($x = $k; $x < $velicina; $x++){
 
 			for($y = $x; $y < $velicina - 1; $y++){
 
 				//broj za množenje reda
 				if($pom[$x][$x] == 0) break;
+				
 				$broj = ($pom[$y + 1][$x] / $pom[$x][$x]) ;												
+				
 				array_push($brojevi, $broj);
 				
 				//množenje reda				
@@ -38,6 +42,7 @@ class LUFactorization extends Controller
 			}				
 			if($pivot) break;
 		}		
+		
 		$a = array($pom);
 		$b = array($brojevi);		
 		$c = array_merge($a,$b);		
@@ -61,6 +66,8 @@ class LUFactorization extends Controller
 		$velicina = count($matrica);
 		$pom = $matrica;
 		$p = array();
+		
+		//postavljanje P matrice
 		for ($x=0; $x < $velicina ; $x++)
 			for ($y=0; $y < $velicina ; $y++){
 				if($x == $y)
@@ -68,33 +75,34 @@ class LUFactorization extends Controller
 				else
 					$p[$x][$y] = 0;
 			}								
-		$max = 0;
-		$stupac = 0;
+		
+		$max = 0;		
 		$brojevi = array();		
 		$zamjena = array();		
 		
 		for($x = 0; $x < $velicina -1; $x++){
-			
+			$red = 0;
 			//traženje max u stupcu
 			$max = $pom[$x][$x];
+			
 			for($y = $x; $y < $velicina; $y++){
 				if($pom[$y][$x] > $max){					
 					$max = $pom[$y][$x];
-					$stupac = $y;
+					$red = $y;
 				}
 			}	
 
 			//zamjena ako je potrebno		
-			if($stupac != 0){
+			if($red != 0){
 				$pomRed = $pom[$x];
-				$pom[$x] = $pom[$stupac];
-				$pom[$stupac] = $pomRed;
+				$pom[$x] = $pom[$red];
+				$pom[$red] = $pomRed;
 
 				$pomRed = $p[$x];
-				$p[$x] = $p[$stupac];
-				$p[$stupac] = $pomRed;			
+				$p[$x] = $p[$red];
+				$p[$red] = $pomRed;			
 				if($x!=0)
-					$zamjena[$stupac] = $x;
+					$zamjena[$red] = $x;
 			}											
 			$u = $this->IzracunajDonjeTrokutastu($pom, $x, true);				
 			$pom = $u[0];
@@ -139,7 +147,7 @@ class LUFactorization extends Controller
 
 	public function DohvatiIzBaze(Request $request){
 		
-		$zadatak = $request->get('zadatak');
+		$zadatak = $request->get('zadatak');		
 		$pivotiranje = $request->get('pivotiranje');
 		$zadatakIzBaze = Factorization::where('zadatak_broj', '=', $zadatak)->firstOrFail();		
 		$velicina = $zadatakIzBaze['velicina_matrice'];

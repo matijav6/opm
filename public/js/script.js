@@ -46,7 +46,8 @@ function provjeriInput(){
 	for(var i = 0; i < elements.length; i++) {
 	    if(elements[i].type == "text")
 	    	if(elements[i].value == null)
-        		nul = true;
+	    		alert(elements[i].name);
+        		//nul = true;
 	}  
     if(nul){
     	alert("Matrica nije popunjena!");
