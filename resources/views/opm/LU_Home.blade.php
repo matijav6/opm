@@ -47,8 +47,16 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zadaci <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{{route('zadaci')}}?zadatak=7">Zadatak 7</a></li>
-                <li><a href="{{route('zadaci')}}?zadatak=7&pivotiranje=1">Zadatak 7 sa pivotiranjem</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7a">Zadatak 7 a)</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7a&pivotiranje=1">Zadatak 7 a) sa pivotiranjem</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7b">Zadatak 7 b)</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7b&pivotiranje=1">Zadatak 7 b) sa pivotiranjem</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7c">Zadatak 7 c)</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7c&pivotiranje=1">Zadatak 7 c) sa pivotiranjem</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7d">Zadatak 7 d)</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7d&pivotiranje=1">Zadatak 7 d) sa pivotiranjem</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7e">Zadatak 7 e)</a></li>
+                <li><a href="{{route('zadaci')}}?zadatak=7e&pivotiranje=1">Zadatak 7 e) sa pivotiranjem</a></li>
               </ul>
             </li>
           </ul>

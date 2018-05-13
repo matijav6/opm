@@ -49,7 +49,7 @@ class LUFactorization extends Controller
 		$i = 0;		
 		for($x = 0; $x < $velicina; $x++){
 			$pom[$x][$x] = 1;
-			for($y = $x; $y < $velicina - 1; $y++){
+			for($y = $x; $y < $velicina - 1; $y++){						
 				$pom[$y + 1][$x] = $brojevi[$i++];
 				$pom[$x][$y + 1] = 0;
 			}
