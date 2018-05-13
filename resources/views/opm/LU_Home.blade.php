@@ -56,7 +56,7 @@
                 <li><a href="{{route('zadaci')}}?zadatak=7d">Zadatak 7 d)</a></li>
                 <li><a href="{{route('zadaci')}}?zadatak=7d&pivotiranje=1">Zadatak 7 d) sa pivotiranjem</a></li>
                 <li><a href="{{route('zadaci')}}?zadatak=7e">Zadatak 7 e)</a></li>
-                <li><a href="{{route('zadaci')}}?zadatak=7e&pivotiranje=1">Zadatak 7 e) sa pivotiranjem</a></li>
+               <!-- <li><a href="{{route('zadaci')}}?zadatak=7e&pivotiranje=1">Zadatak 7 e) sa pivotiranjem</a></li> -->
               </ul>
             </li>
           </ul>
