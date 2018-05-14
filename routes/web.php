@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/', 'LUFactorization@LUHome')->name('home');
-Route::get('/baza', 'LUFactorization@DohvatiIzBaze')->name('zadaci');
-Route::post('LU_Factorizaction/result', 'LUFactorization@Izracunaj')->name('izracunaj');
+Route::domain('opm.matija-vuk.com')->group(function () {
+
+	Route::get('/', 'LUFactorization@LUHome')->name('home');
+	Route::get('/baza', 'LUFactorization@DohvatiIzBaze')->name('zadaci');
+	Route::post('LU_Factorizaction/result', 'LUFactorization@Izracunaj')->name('izracunaj');
+});
