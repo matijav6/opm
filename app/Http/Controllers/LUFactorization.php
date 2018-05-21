@@ -19,7 +19,22 @@ class LUFactorization extends Controller
 		return $det;
 	}	
 
-	function IzracunajDonjeTrokutastu($matrica,$k = 0,$pivot = false){	
+	function ProvjeriNule($matrica){
+		$velicina = count($matrica);
+		$pom = 0;		
+		for($i = 0; $i < $velicina; $i++){
+			if($matrica[0][0] == 0){
+				if($matrica[$i][0] != 0){
+					$pom = $matrica[0];
+					$matrica[0] = $matrica[$i];
+					$matrica[$i] = $pom;
+				}					
+			}						
+		}
+		return($matrica);
+	}
+
+	function IzracunajDonjeTrokutastu($matrica, $k = 0, $pivot = false){	
 		
 		$velicina = count($matrica);
 		$pom = $matrica;
@@ -34,7 +49,10 @@ class LUFactorization extends Controller
 				
 				$broj = ($pom[$y + 1][$x] / $pom[$x][$x]) ;												
 				
-				array_push($brojevi, $broj);
+				if($broj != 0){
+					$key = $y+1 . "-".$x;				
+					$brojevi[$key] = $broj;					
+				}				
 				
 				//množenje reda				
 				for($i = 0; $i < $velicina; $i++)
@@ -48,19 +66,26 @@ class LUFactorization extends Controller
 		$c = array_merge($a,$b);		
 		return $c;
 	}
+	
 	public function IzracunajGornjeTrokutastu($matrica,$brojevi){	
 		$velicina = count($matrica);
 		$pom = $matrica;
 		$i = 0;		
+	
 		for($x = 0; $x < $velicina; $x++){
 			$pom[$x][$x] = 1;
-			for($y = $x; $y < $velicina - 1; $y++){						
-				$pom[$y + 1][$x] = $brojevi[$i++];
-				$pom[$x][$y + 1] = 0;
+			for($y = $x; $y < $velicina - 1; $y++)
+				$pom[$x][$y + 1] = 0;			
+		}		
+		for($i = 0; $i < count($brojevi); $i++){
+			foreach ($brojevi[$i] as $key => $value) {
+				$mat = explode("-", $key);
+				$pom[$mat[0]][$mat[1]] = $value;
 			}
 		}
 		return $pom;		
 	}
+	
 	public function Pivotiranje($matrica){
 
 		$velicina = count($matrica);
@@ -82,11 +107,12 @@ class LUFactorization extends Controller
 		
 		for($x = 0; $x < $velicina -1; $x++){
 			$red = 0;
+			
 			//traženje max u stupcu
 			$max = $pom[$x][$x];
 			
 			for($y = $x; $y < $velicina; $y++){
-				if($pom[$y][$x] > $max){					
+				if($pom[$y][$x] > $max && $pom[$y][$x] > $pom[$x][$x]){					
 					$max = $pom[$y][$x];
 					$red = $y;
 				}
@@ -106,17 +132,18 @@ class LUFactorization extends Controller
 			}											
 			$u = $this->IzracunajDonjeTrokutastu($pom, $x, true);				
 			$pom = $u[0];
+			array_push($brojevi, $u[1]);
 			
-			if(array_sum($u[1]) != 0 )
+			/*if(array_sum($u[1]) != 0 )
 				foreach ($u[1] as $value)					
-					array_push($brojevi, $value);		
+					array_push($brojevi, $value);		*/
 		}				
 
-		foreach ($zamjena as $key => $value) {
+		/*foreach ($zamjena as $key => $value) {
 			$pomB = $brojevi[$key - 1];
 			$brojevi[$key - 1] = $brojevi[$value - 1];
 			$brojevi[$value - 1] = $pomB;
-		}
+		}*/
 
 		$l = $this->IzracunajGornjeTrokutastu($matrica,$brojevi);
 		$u = array($pom);
@@ -161,25 +188,34 @@ class LUFactorization extends Controller
 				$matrica[$x][$y] = $matricaIzBaze[$i++];
 		
 		if($pivotiranje == 1){
+			
+			$matrica = $this->ProvjeriNule($matrica);		
 			$pivot = $this->pivotiranje($matrica);
-			$u = $pivot[0];
+			$u = $pivot[0];					
 			$l = $pivot[1];
-			$p = $pivot[2];
+			$p = $pivot[2];	
 			$det = $this->IzracunajDeterminantu($u);			
 		}		
 		else{			
 			
-			$merge = $this->IzracunajDonjeTrokutastu($matrica);		
-			$l = $this->IzracunajGornjeTrokutastu($matrica,$merge[1]);
+			$matrica = $this->ProvjeriNule($matrica);			
+			
+			$merge = $this->IzracunajDonjeTrokutastu($matrica);							
+			
+			$l = $this->IzracunajGornjeTrokutastu($merge[0],$merge[1]);
+	
 			$det = $this->IzracunajDeterminantu($merge[0]);
-			$u = $merge[0];			
+			
+			$u = $merge[0];
 		}				
 		return view('opm.LU_Home',compact('u','l','det','matrica','p'));
 
 	}
 
 	public function Izracunaj(){		
+		
 		$matrica = $this->DohvatiVrijednosti();		
+		
 		if(isset($_POST['pivotiranje'])){
 			$pivot = $this->pivotiranje($matrica);
 			$u = $pivot[0];
@@ -187,6 +223,7 @@ class LUFactorization extends Controller
 			$p = $pivot[2];
 			$det = $this->IzracunajDeterminantu($u);			
 		}		
+		
 		else{			
 			
 			$merge = $this->IzracunajDonjeTrokutastu($matrica);		

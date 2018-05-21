@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Matija Vuk</a>
+          <a class="navbar-brand" href="">Matija Vuk</a>
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
@@ -54,11 +54,11 @@
                     <li><a href="{{route('zadaci')}}?zadatak=7c">Zadatak 7 c)</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=7c&pivotiranje=1">Zadatak 7 c) sa pivotiranjem</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=7d">Zadatak 7 d)</a></li>
-                    <!--<li><a href="{{route('zadaci')}}?zadatak=7d&pivotiranje=1">Zadatak 7 d) sa pivotiranjem</a></li> -->
+                    <li><a href="{{route('zadaci')}}?zadatak=7d&pivotiranje=1">Zadatak 7 d) sa pivotiranjem</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=7e">Zadatak 7 e)</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=7e&pivotiranje=1">Zadatak 7 e) sa pivotiranjem</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=10a&pivotiranje=1">Zadatak 10 a) sa pivotiranjem</a></li>                    
-                   <!-- <li><a href="{{route('zadaci')}}?zadatak=10b&pivotiranje=1">Zadatak 10 b) sa pivotiranjem</a></li> -->
+                    <li><a href="{{route('zadaci')}}?zadatak=10b&pivotiranje=1">Zadatak 10 b) sa pivotiranjem</a></li>
                 </ul>
             </li>
           </ul>
@@ -95,7 +95,19 @@
                         <label for="operacija">3x3</label>
                         <input type="radio" name="operacija" value="3"></br>
                         <label for="operacija">4x4</label>
-                        <input type="radio" name="operacija" value="4"></br>                     
+                        <input type="radio" name="operacija" value="4"></br>  
+                        <label for="operacija">5x5</label>
+                        <input type="radio" name="operacija" value="5"></br>  
+                        <label for="operacija">6x6</label>
+                        <input type="radio" name="operacija" value="6"></br>  
+                        <label for="operacija">7x7</label>
+                        <input type="radio" name="operacija" value="7"></br>  
+                        <label for="operacija">8x8</label>
+                        <input type="radio" name="operacija" value="8"></br>  
+                        <label for="operacija">9x9</label>
+                        <input type="radio" name="operacija" value="9"></br>  
+                        <label for="operacija">10x10</label>
+                        <input type="radio" name="operacija" value="10"></br>                     
                         <a href="#prikaziMatricu" class="btn btn-theme" id="prikaziMatricu" onclick="provjeriRadio();;">Prikaži matricu</a>                  
                     </div>
                     <div class="col-md-4" id="PocetnaMatrica" style="display: none;" >                    
