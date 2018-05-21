@@ -207,8 +207,12 @@ class LUFactorization extends Controller
 			$det = $this->IzracunajDeterminantu($merge[0]);
 			
 			$u = $merge[0];
-		}				
-		return view('opm.LU_Home',compact('u','l','det','matrica','p'));
+		}		
+		if(count($matrica) > 5)		
+			$stil = "ispis-okomito";
+		else 
+			$stil = "ispis";		
+			return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
 
 	}
 
@@ -230,7 +234,11 @@ class LUFactorization extends Controller
 			$l = $this->IzracunajGornjeTrokutastu($matrica,$merge[1]);
 			$det = $this->IzracunajDeterminantu($merge[0]);
 			$u = $merge[0];			
-		}				
-		return view('opm.LU_Home',compact('u','l','det','matrica','p'));
+		}		
+		if(count($matrica) > 5)		
+			$stil = "ispis-okomito";
+		else 
+			$stil = "ispis";
+		return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
 	}
 }

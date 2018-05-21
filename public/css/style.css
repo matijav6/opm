@@ -481,11 +481,18 @@ csmall2 {
   	text-align: center;
   }  
 }
-@media (max-width: 560px) {
-	.ispis{
+@media (max-width: 765px) {
+	.ispis, .ispis-okomito{
   		grid-template-columns: auto !important;
   	}
   	.matricaIspis{
   		margin: 0 !important;
   	}
+}
+.ispis-okomito{
+  		grid-template-columns: auto !important;
+
+  		.matricaIspis{
+  			margin: 0 !important;
+  		}
 }

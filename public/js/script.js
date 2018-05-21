@@ -1,3 +1,14 @@
+function popuniSlucajnimBrojevima(min,max){
+	
+	var vel = document.querySelector('input[name="operacija"]:checked').value;
+
+	for (x = 0; x < vel; x++){
+		for(y = 0; y <vel; y++){	
+			document.querySelector('input[name="a' + x + y +'"]').value =  Math.floor(Math.random() * (max - min + 1) ) + min;;				
+		}		
+	}
+}
+
 function pokaziMatricu() {	
 	var radio = document.querySelector('input[name="operacija"]:checked').value;
 

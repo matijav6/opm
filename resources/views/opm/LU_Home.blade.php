@@ -90,25 +90,31 @@
                     <div class="col-md-2">                                        
                         <h4>Odaberite veličinu matrice:</h4>
                         <br/>
-                        <label for="operacija">2x2</label>
-                        <input type="radio" name="operacija" value="2"></br>
-                        <label for="operacija">3x3</label>
-                        <input type="radio" name="operacija" value="3"></br>
-                        <label for="operacija">4x4</label>
-                        <input type="radio" name="operacija" value="4"></br>  
-                        <label for="operacija">5x5</label>
-                        <input type="radio" name="operacija" value="5"></br>  
-                        <label for="operacija">6x6</label>
-                        <input type="radio" name="operacija" value="6"></br>  
-                        <label for="operacija">7x7</label>
-                        <input type="radio" name="operacija" value="7"></br>  
-                        <label for="operacija">8x8</label>
-                        <input type="radio" name="operacija" value="8"></br>  
-                        <label for="operacija">9x9</label>
-                        <input type="radio" name="operacija" value="9"></br>  
-                        <label for="operacija">10x10</label>
-                        <input type="radio" name="operacija" value="10"></br>                     
-                        <a href="#prikaziMatricu" class="btn btn-theme" id="prikaziMatricu" onclick="provjeriRadio();;">Prikaži matricu</a>                  
+                        <div style="display: grid; grid-template-columns: auto auto;">
+                            <div>
+                            <label for="operacija">2x2</label>
+                            <input type="radio" name="operacija" value="2"></br>
+                            <label for="operacija">3x3</label>
+                            <input type="radio" name="operacija" value="3"></br>
+                            <label for="operacija">4x4</label>
+                            <input type="radio" name="operacija" value="4"></br>  
+                            <label for="operacija">5x5</label>
+                            <input type="radio" name="operacija" value="5"></br>  
+                            <label for="operacija">6x6</label>
+                            <input type="radio" name="operacija" value="6"></br>  
+                        </div>
+                        <div>
+                            <label for="operacija">7x7</label>
+                            <input type="radio" name="operacija" value="7"></br>  
+                            <label for="operacija">8x8</label>
+                            <input type="radio" name="operacija" value="8"></br>  
+                            <label for="operacija">9x9</label>
+                            <input type="radio" name="operacija" value="9"></br>  
+                            <label for="operacija">10x10</label>
+                            <input type="radio" name="operacija" value="10"></br>    
+                        </div>                                                           
+                        </div>                        
+                        <a href="#prikaziMatricu" class="btn btn-theme" id="prikaziMatricu" onclick="provjeriRadio();">Prikaži matricu</a>
                     </div>
                     <div class="col-md-4" id="PocetnaMatrica" style="display: none;" >                    
                         <h4>Početna matrica</h4>          
@@ -117,14 +123,15 @@
                         </div>        
                         <label for="operacija">Pivotiranje</label>
                         <input type="checkbox" name="pivotiranje" value="pivotiranje"></br>                          
-                        <button type="submit" class="btn btn-theme title="Izračunaj" style="margin-top: 15px;" value="1" >Izračunaj</button>
+                        <a href="#popuniSlucajnimBrojevima" class="btn btn-theme" id="popuniSlucajnimBrojevima" onclick="popuniSlucajnimBrojevima(-10,10);">Popuni slučajnim brojevim</a>
+                        <button type="submit" class="btn btn-theme title="Izračunaj" value="1" >Izračunaj</button>
                                                                         {{ csrf_field() }}                         
                     </div>
                 </form>
                 <div class="col-md-10" id="rezultat">  
                     @if (isset($det))
                         <h4>Rezultat:</h4>  
-                        <div class="row ispis" style="display: grid; grid-template-columns: auto auto auto auto auto auto;" >
+                        <div class="row {{$stil}}" style="display: grid; grid-template-columns: auto auto auto auto auto auto;" >
                             @if (isset($matrica))
                                 <div class="col-sm matricaIspis" style="display: inline-table; margin-right: 30px;">
                                     @foreach($matrica as $item)                            
