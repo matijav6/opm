@@ -59,6 +59,12 @@
                     <li><a href="{{route('zadaci')}}?zadatak=7e&pivotiranje=1">Zadatak 7 e) sa pivotiranjem</a></li>
                     <li><a href="{{route('zadaci')}}?zadatak=10a&pivotiranje=1">Zadatak 10 a) sa pivotiranjem</a></li>                    
                     <li><a href="{{route('zadaci')}}?zadatak=10b&pivotiranje=1">Zadatak 10 b) sa pivotiranjem</a></li>
+                    <li><a href="{{route('zadaci')}}?zadatak=10b&pivotiranje=1">Zadatak 10 b) sa pivotiranjem</a></li>
+
+                    <li><a href="{{route('zadaci')}}?zadatak=12a">Zadatak 12 a)</a></li>
+                    <li><a href="{{route('zadaci')}}?zadatak=12b">Zadatak 12 b)</a></li>
+                    <li><a href="{{route('zadaci')}}?zadatak=13a">Zadatak 13 a)</a></li>
+                    <li><a href="{{route('zadaci')}}?zadatak=13b">Zadatak 13 b)</a></li>
                 </ul>
             </li>
           </ul>

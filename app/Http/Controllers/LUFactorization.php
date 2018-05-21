@@ -11,7 +11,7 @@ class LUFactorization extends Controller
     	return view('opm.LU_Home');
     }
 
-	function IzracunajDeterminantu($matrica) {
+	public function IzracunajDeterminantu($matrica) {
 		$det = 1;
 		$velicina = count($matrica);
 		for($x = 0; $x < $velicina; $x++)
@@ -167,48 +167,105 @@ class LUFactorization extends Controller
 		}
 	}
 
+	function LinearneJednadzbe($matrica, $matricaRjesenja){		
+		for ($x=0; $x < count($matrica); $x++) { 
+
+			//prvo podijelimo cijeli red s vodećim da bi
+			//kod vodećeg dobili '1'
+			$broj = $matrica[$x][$x];
+			for ($i=$x; $i < count($matrica); $i++)				
+				$matrica[$x][$i] /= $broj;			
+
+			$matricaRjesenja[$x] /= $broj;			
+
+			//broj za poništavanje retka
+			if(isset($matrica[$x+1][$x]))
+				$broj = $matrica[$x+1][$x] / $matrica[$x][$x] * -1;
+			
+			//nakon toga taj red pribrojimo sljedećm i pomnožimo s brojem za poništavanjem
+			for ($i=$x; $i < count($matrica) ; $i++) { 
+				if($x+1 < count($matrica)){			
+					$matrica[$x+1][$i] += $matrica[$x][$i] * $broj;					
+				}
+			}
+			if(isset($matricaRjesenja[$x+1]))
+				$matricaRjesenja[$x+1] += $matricaRjesenja[$x] * $broj;
+
+
+			//checkpoint
+			
+			//sada možemo napraviti nule iznad glavne dijagonale
+			for ($i=$x; $i >= 0 ; $i--) { 
+
+				//broj za poništavanje
+				if(isset($matrica[$x-1][$x]))
+					$broj = $matrica[$x-1][$x] / $matrica[$x][$x] * -1;
+
+				for ($i=$x; $i >= 0 ; $i--) { 
+					if($x -1 >= 0){			
+						$matrica[$x-1][$i] += $matrica[$x][$i] * $broj;					
+					}
+				}
+				if(isset($matricaRjesenja[$x - 1]))
+					$matricaRjesenja[$x-1] += $matricaRjesenja[$x] * $broj;				
+			}			
+			print_r($matricaRjesenja);
+			echo "</br>";
+			$this->IspisMatrice($matrica);
+		}				
+		return array($matrica,$matricaRjesenja);
+	}
+
 	public function DohvatiIzBaze(Request $request){
 		
 		$zadatak = $request->get('zadatak');		
 		$pivotiranje = $request->get('pivotiranje');
 		$zadatakIzBaze = Factorization::where('zadatak_broj', '=', $zadatak)->firstOrFail();		
-		$velicina = $zadatakIzBaze['velicina_matrice'];
-		$i=0;
-
-
+		$velicina = $zadatakIzBaze['velicina_matrice'];		
 		$matricaIzBaze = explode(" ",$zadatakIzBaze['matrica']);
+		$matricaRjesenja = explode(" ",$zadatakIzBaze['rjesenje']);
 
+		
+		$i=0;
 		for($x = 0; $x < $velicina; $x++)
 			for($y = 0; $y < $velicina; $y++)
-				$matrica[$x][$y] = $matricaIzBaze[$i++];
+				$matrica[$x][$y] = $matricaIzBaze[$i++];		
+
+		if($matricaRjesenja != null){
+			$lin = $this->LinearneJednadzbe($matrica,$matricaRjesenja);
+			$rjesenja= $lin[1];			
+			//return view('opm.LU_lin',compact('matrica','rjesenja','matricaRjesenja'));
+		}
+		else{						
+			
+			if($pivotiranje == 1){
+				
+				$matrica = $this->ProvjeriNule($matrica);		
+				$pivot = $this->pivotiranje($matrica);
+				$u = $pivot[0];					
+				$l = $pivot[1];
+				$p = $pivot[2];	
+				$det = $this->IzracunajDeterminantu($u);			
+			}		
+			else{			
+				
+				$matrica = $this->ProvjeriNule($matrica);			
+				
+				$merge = $this->IzracunajDonjeTrokutastu($matrica);							
+				
+				$l = $this->IzracunajGornjeTrokutastu($merge[0],$merge[1],false);
 		
-		if($pivotiranje == 1){
-			
-			$matrica = $this->ProvjeriNule($matrica);		
-			$pivot = $this->pivotiranje($matrica);
-			$u = $pivot[0];					
-			$l = $pivot[1];
-			$p = $pivot[2];	
-			$det = $this->IzracunajDeterminantu($u);			
-		}		
-		else{			
-			
-			$matrica = $this->ProvjeriNule($matrica);			
-			
-			$merge = $this->IzracunajDonjeTrokutastu($matrica);							
-			
-			$l = $this->IzracunajGornjeTrokutastu($merge[0],$merge[1],false);
-	
-			$det = $this->IzracunajDeterminantu($merge[0]);
-			
-			$u = $merge[0];
-		}		
+				$det = $this->IzracunajDeterminantu($merge[0]);
+				
+				$u = $merge[0];
+			}		
+		}
 		if(count($matrica) > 5)		
 			$stil = "ispis-okomito";
 		else 
 			$stil = "ispis";		
 
-			return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
+			//return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
 
 	}
 
