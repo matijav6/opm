@@ -209,9 +209,7 @@ class LUFactorization extends Controller
 			//----------------------------------------------\\			
 			
 		}
-		$this->IspisMatrice($matrica);
-		echo "</br>";
-		print_r($matricaRjesenja);
+		return array($matrica,$matricaRjesenja);
 	}
 
 	public function DohvatiIzBaze(Request $request){
@@ -232,7 +230,7 @@ class LUFactorization extends Controller
 		if($matricaRjesenja[0] != null){			
 			$lin = $this->LinearneJednadzbe($matrica,$matricaRjesenja);
 			$rjesenja= $lin[1];			
-			//return view('opm.LU_lin',compact('matrica','rjesenja','matricaRjesenja'));
+			return view('opm.LU_lin',compact('matrica','rjesenja','matricaRjesenja'));
 		}
 		else{						
 			
