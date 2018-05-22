@@ -167,53 +167,51 @@ class LUFactorization extends Controller
 		}
 	}
 
-	function LinearneJednadzbe($matrica, $matricaRjesenja){		
-		for ($x=0; $x < count($matrica); $x++) { 
-
+	function LinearneJednadzbe($matrica, $matricaRjesenja){						
+		echo "</br>";
+		
+		for ($x=0; $x < count($matrica); $x++){
+			
 			//prvo podijelimo cijeli red s vodećim da bi
 			//kod vodećeg dobili '1'
 			$broj = $matrica[$x][$x];
-			for ($i=$x; $i < count($matrica); $i++)				
-				$matrica[$x][$i] /= $broj;			
-
-			$matricaRjesenja[$x] /= $broj;			
-
-			//broj za poništavanje retka
-			if(isset($matrica[$x+1][$x]))
-				$broj = $matrica[$x+1][$x] / $matrica[$x][$x] * -1;
+			if($broj == 0) $broj  = 1;
 			
-			//nakon toga taj red pribrojimo sljedećm i pomnožimo s brojem za poništavanjem
-			for ($i=$x; $i < count($matrica) ; $i++) { 
-				if($x+1 < count($matrica)){			
-					$matrica[$x+1][$i] += $matrica[$x][$i] * $broj;					
-				}
+			for ($i=$x; $i < count($matrica); $i++)
+				$matrica[$x][$i] /= $broj;
+
+			$matricaRjesenja[$x] /= $broj;				
+			//----------------------------------------------\\		
+			
+			
+
+			//---------------Donjetrokutasta------------------\\		
+			for ($k=$x+1; $k < count($matrica); $k++) { 
+				
+				$broj = $matrica[$k][$x] / $matrica[$x][$x] * -1;
+
+				for ($i=$x; $i < count($matrica) ; $i++)
+					$matrica[$k][$i] += $matrica[$x][$i] * $broj;				
+
+				$matricaRjesenja[$k] += $matricaRjesenja[$x] * $broj;
 			}
-			if(isset($matricaRjesenja[$x+1]))
-				$matricaRjesenja[$x+1] += $matricaRjesenja[$x] * $broj;
-
-
-			//checkpoint
 			
-			//sada možemo napraviti nule iznad glavne dijagonale
-			for ($i=$x; $i >= 0 ; $i--) { 
+			//---------------Gornjetrokutasta------------------\\
+			for ($k=$x-1; $k >= 0 ; $k--) { 
 
-				//broj za poništavanje
-				if(isset($matrica[$x-1][$x]))
-					$broj = $matrica[$x-1][$x] / $matrica[$x][$x] * -1;
+				$broj = $matrica[$k][$x] / $matrica[$x][$x] * -1;
 
-				for ($i=$x; $i >= 0 ; $i--) { 
-					if($x -1 >= 0){			
-						$matrica[$x-1][$i] += $matrica[$x][$i] * $broj;					
-					}
-				}
-				if(isset($matricaRjesenja[$x - 1]))
-					$matricaRjesenja[$x-1] += $matricaRjesenja[$x] * $broj;				
-			}			
-			print_r($matricaRjesenja);
-			echo "</br>";
-			$this->IspisMatrice($matrica);
-		}				
-		return array($matrica,$matricaRjesenja);
+				for ($i=$x; $i < count($matrica) ; $i++)
+					$matrica[$k][$i] += $matrica[$x][$i] * $broj;									
+
+				$matricaRjesenja[$k] += $matricaRjesenja[$x] * $broj;
+			}
+			//----------------------------------------------\\			
+			
+		}
+		$this->IspisMatrice($matrica);
+		echo "</br>";
+		print_r($matricaRjesenja);
 	}
 
 	public function DohvatiIzBaze(Request $request){
@@ -231,7 +229,7 @@ class LUFactorization extends Controller
 			for($y = 0; $y < $velicina; $y++)
 				$matrica[$x][$y] = $matricaIzBaze[$i++];		
 
-		if($matricaRjesenja != null){
+		if($matricaRjesenja[0] != null){			
 			$lin = $this->LinearneJednadzbe($matrica,$matricaRjesenja);
 			$rjesenja= $lin[1];			
 			//return view('opm.LU_lin',compact('matrica','rjesenja','matricaRjesenja'));
@@ -259,14 +257,13 @@ class LUFactorization extends Controller
 				
 				$u = $merge[0];
 			}		
-		}
-		if(count($matrica) > 5)		
-			$stil = "ispis-okomito";
-		else 
-			$stil = "ispis";		
+			if(count($matrica) > 5)		
+				$stil = "ispis-okomito";
+			else 
+				$stil = "ispis";		
 
-			//return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
-
+			return view('opm.LU_Home',compact('u','l','det','matrica','p','stil'));
+		}		
 	}
 
 	public function Izracunaj(){		
